@@ -47,6 +47,20 @@ type Commit struct {
 	// be used to sign the commit. The private key must be present and already
 	// decrypted. Ignored if Verification.Signature is defined.
 	SigningKey *openpgp.Entity `json:"-"`
+	
+	Commit struct {
+		Author *CommitAuthor `json:"author"`
+		Committer *CommitAuthor `json:"committer"`
+		Message string `json:"message"`
+		URL          string `json:"url"`
+		CommentCount int    `json:"comment_count"`
+		Verification struct {
+			Verified  bool        `json:"verified"`
+			Reason    string      `json:"reason"`
+			Signature interface{} `json:"signature"`
+			Payload   interface{} `json:"payload"`
+		} `json:"verification"`
+	} `json:"commit"`
 }
 
 func (c Commit) String() string {
